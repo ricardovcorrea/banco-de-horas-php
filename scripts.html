@@ -1,0 +1,241 @@
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+<script type="text/javascript" src="editor_publicacoes/ckeditor.js"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery-ui.js" type="text/javascript"></script>
+<script src="js/jquery-mask.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    function confirmaLogout() 
+    {  
+        if (confirm("Tem certeza que deseja sair?")) 
+        {  
+            location.href="logout.php";  
+        }  
+    }
+    
+    function confirmaExclusaoColaborador(id) 
+    {  
+        if (confirm("Tem certeza que deseja excluir este colaborador? Todos os dados referentes ao mesmo serão apenas ocultados!")) 
+        {  
+            location.href="deleta_colaborador.php?id_colaborador="+id;  
+        }  
+    }
+    
+    function confirmaCancelamentoNovoColaborador() 
+    {  
+        if (confirm("Tem certeza que deseja cancelar o cadastro deste colaborador?")) 
+        {  
+            location.href="colaboradores.php";  
+        }  
+    }
+    
+    function validaNovoColaborador() 
+    {  
+        $(document).ready(function(){
+
+            if($('#nome_colaborador').val() == "")
+            {
+                alert('Por favor, preencha o nome do colaborador antes de enviar!')
+                $('#nome_colaborador').focus();
+                return false;
+            }
+
+            if($('#ctps_colaborador').val() == "")
+            {
+                alert('Por favor, preencha a CTPS do colaborador antes de enviar!')
+                $('#ctps_colaborador').focus();
+                return false;
+            }
+
+            if($('#cargo_colaborador').val() == "")
+            {
+                alert('Por favor, preencha o cargo do colaborador antes de enviar!')
+                $('#cargo_colaborador').focus();
+                return false;
+            }
+
+            if($('#admissao_colaborador').val() == "")
+            {
+                alert('Por favor, selecione a data de admissao do colaborador antes de enviar!')
+                $('#admissao_colaborador').focus();
+                return false;
+            }
+
+            if($('#email_colaborador').val() == "")
+            {
+                alert('Por favor, preencha o email do colaborador antes de enviar!')
+                $('#email_colaborador').focus();
+                return false;
+            }
+            if (confirm("Tem certeza que deseja confirmar o cadastro deste colaborador?")) 
+            {
+                $('#form_novo_colaborador').submit();
+            }
+        });  
+    }
+
+    function validaNovoRegistroBancoDeHoras() 
+    {  
+        $(document).ready(function(){
+
+            if($('#colaborador_selecionado').val() == "")
+            {
+                alert('Por favor, selecione um colaborador antes de enviar!')
+                $('#colaborador_selecionado').focus();
+                return false;
+            }
+
+            if($('#data_registro').val() == "")
+            {
+                alert('Por favor, preencha a data do registro antes de enviar!')
+                $('#data_registro').focus();
+                return false;
+            }
+
+             if($('#entrada_registro').val() == "")
+            {
+                alert('Por favor, preencha o horario de entrada do registro antes de enviar!')
+                $('#entrada_registro').focus();
+                return false;
+            }
+
+            if($('#saida_almoco_registro').val() == "")
+            {
+                alert('Por favor, preencha o horario de saida para almoço do registro antes de enviar!')
+                $('#saida_almoco_registro').focus();
+                return false;
+            }
+
+            if($('#retorno_almoco_registro').val() == "")
+            {
+                alert('Por favor, preencha o horario de retorno do almoço do registro antes de enviar!')
+                $('#retorno_almoco_registro').focus();
+                return false;
+            }
+
+            if($('#saida_registro').val() == "")
+            {
+                alert('Por favor, preencha o horario de saida do registro antes de enviar!')
+                $('#saida_registro').focus();
+                return false;
+            }
+
+            if($('#justificativa_registro').val() == "")
+            {
+                alert('Por favor, preencha a justificativa do registro!')
+                $('#justificativa_registro').focus();
+                return false;
+            }   
+
+            if($('#entrada_registro').val() > $('#saida_almoco_registro').val())
+            {
+                alert('Por favor, o horario de entrada não pode ser maior que o de saida para almoço!')
+                $('#entrada_registro').focus();
+                return false;
+            }
+
+            if($('#saida_almoco_registro').val() > $('#retorno_almoco_registro').val())
+            {
+                alert('Por favor, o horario de saida para almoço não pode ser maior que o de retorno do almoço!')
+                $('#saida_almoco_registro').focus();
+                return false;
+            }
+
+            if($('#retorno_almoco_registro').val() > $('#saida').val())
+            {
+                alert('Por favor, o horario de retorno do almoço não pode ser maior que o de saida!')
+                $('#retorno_almoco_registro').focus();
+                return false;
+            }
+
+            $('#form_novo_registro_bancodehoras').submit();
+        }); 
+    }
+
+    function confirmaNovoRegistroBancoDeHoras() 
+    {  
+        $(document).ready(function(){
+
+            if($('#total_extra').text() == "")
+            {
+                alert('Não existem horas positivas ou negativas para serem registradas!')
+                return false;
+            }
+            else
+            {
+                if (confirm("Tem certeza que deseja confirmar o cadastro deste registro?")) 
+                {  
+                    
+                    var id_colaborador = $('#confirma_id_colaborador').val();
+                    var data = $('#confirma_data_registro').text();
+                    var entrada = $('#confirma_entrada_registro').text();
+                    var saida_almoco = $('#confirma_saida_almoco_registro').text();
+                    var retorno_almoco = $('#confirma_retorno_almoco_registro').text();
+                    var saida = $('#confirma_saida_registro').text();
+                    var total_extra = $('#total_extra').text();
+                    var justificativa = $('#confirma_justificativa_registro').text(); 
+
+                     location.href="salva_registro_bancodehoras.php?id_colaborador="+id_colaborador+"&data="+data+"&entrada="+entrada+"&saida_almoco="+saida_almoco+"&retorno_almoco="+retorno_almoco+"&saida="+saida+"&total_extra="+total_extra+"&justificativa="+justificativa;
+                }    
+            }
+        }); 
+    }
+
+    function confirmaCancelamentoNovoRegistro() 
+    {  
+        if (confirm("Tem certeza que deseja cancelar o cadastro deste registro?")) 
+        {  
+            location.href="bancodehoras.php";  
+        }
+    }
+
+    function confirmaExclusaoRegistro(id) 
+    {  
+        if (confirm("Tem certeza que deseja excluir este registro do banco de horas?")) 
+        {  
+            location.href="deleta_registro_bancodehoras.php?id_registro="+id;  
+        }  
+    }
+    
+    function validaBuscaGeral()
+    {
+        location.href="busca.php";
+    }
+
+    $(document).ready(function()
+    {
+        $("#btn123").button(
+        {
+            icons: {primary:"ui-icon-check"}
+        })
+
+        $("#login_btn_entrar").click(function()
+        {
+            $("#form_login").submit();
+        })
+
+        $("#admissao_colaborador").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true,
+            showWeek: true,
+            dateFormat: "dd/mm/yy"
+        })
+
+        $("#data_registro").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true,
+            showWeek: true,
+            dateFormat: "dd/mm/yy"
+        })
+
+        $("#entrada_registro").mask("99:99:99")
+        $("#saida_almoco_registro").mask("99:99:99")
+        $("#retorno_almoco_registro").mask("99:99:99")
+        $("#saida_registro").mask("99:99:99")
+    })
+        
+</script>
+      
